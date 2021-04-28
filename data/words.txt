@@ -13,6 +13,8 @@ pastelitos
 respeto
 solitario
 tomates
+ano
+escoba
 vuelo
 crema
 café
@@ -20,6 +22,7 @@ estrella
 explosión
 guitarra
 plástico
+culebra
 navaja
 martillo
 libros
@@ -124,7 +127,7 @@ corbata
 periódico
 diente
 planta
-chupetín
+chupetón
 buzo
 oficina
 persiana
@@ -161,7 +164,8 @@ campera
 discurso
 auto
 cinturón
-rúcula
+infiel
+cucaracha
 famoso
 madera
 lentejas
@@ -171,13 +175,17 @@ reloj
 diputado
 cuchillo
 desodorante
+Paralelepípedo
 candado
 luz
 montañas
 computadora
 radio
+ratero
 moño
 cuadro
+caleidoscopio
+Inconstitucionalmente
 calor
 partido
 teatro
@@ -195,6 +203,3 @@ masticando
 masajistas
 frijoles
 electrodoméstico
-caleidoscopio
-Inconstitucionalmente
-Paralelepípedo
