@@ -6,11 +6,11 @@ def get_a_random_word(level):
     words = []
 
     if level == 1:
-        evaluation = [ 4, 5 ]
+        evaluation = range(4, 6)
     elif level == 2:
-        evaluation = [ 6, 7, 8 ]
+        evaluation = range(6, 10)
     elif level == 3:
-        evaluation = [ 9, 10, 11, 12]
+        evaluation = range(10, 30)
     else:
         raise ValueError("Nivel no definido.")
 
@@ -43,11 +43,11 @@ def print_word(word, letters):
     print('\n')
     print(" ".join(new_word).upper())
     print('\n')
-    print('¡Adivina la palabra!')
+    print(f'La palabra consta de {len(word)} letras.')
     print("=" * 50)
 
 def print_lives(lifes):
-    print(f'Te quedan {"♥ " * lifes}vidas.')
+    print(f'Te quedan {"♥ " * lifes}({lifes}) vidas.')
     print("=" * 50)
 
 def print_letters(letters):
@@ -82,8 +82,8 @@ def main():
 
 
         1. Fácil     (4 a 5 letras)
-        2. Dificil   (6 a 8 letras)
-        3. Erudito   (9 a más letras)
+        2. Dificil   (6 a 9 letras)
+        3. Erudito   (10 a más letras)
     '''
 
     game_over = '''
