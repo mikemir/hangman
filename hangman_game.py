@@ -2,10 +2,7 @@ import os
 import random
 import platform
 
-def get_a_word(words):
-    return random.choice(words)
-
-def read_words_file(level):
+def get_a_random_word(level):
     words = []
 
     if level == 1:
@@ -17,11 +14,15 @@ def read_words_file(level):
     else:
         raise ValueError("Nivel no definido.")
 
-    with open("./data/words.txt", 'r') as file:
-        words = list(map(lambda line: line.replace('\n', ''), file.readlines()))
-        words = [word for word in words if len(word) in evaluation]
+    try:
+        with open("./data/words.txt", 'r') as file:
+            words = list(map(lambda line: line.replace('\n', ''), file.readlines()))
+            words = [word for word in words if len(word) in evaluation]
+    except FileNotFoundError:
+        print('El archivo data/words.txt no se encuentra')
+        exit()
 
-    return words
+    return random.choice(words)
 
 def normalize_word(word):
     new_word = []
@@ -45,7 +46,7 @@ def print_word(word, letters):
     print('¡Adivina la palabra!')
     print("=" * 50)
 
-def print_lifes(lifes):
+def print_lives(lifes):
     print(f'Te quedan {"♥ " * lifes}vidas.')
     print("=" * 50)
 
@@ -54,14 +55,15 @@ def print_letters(letters):
     print("=" * 50)
 
 def check_letter(word, letter):
-    return letter in word
+    normalized_word = normalize_word(word)
+    return letter in normalized_word
 
 def check_word(word, letters):
     normalized_word = normalize_word(word)
     all_letters = list(map(lambda letter: letter in letters, normalized_word))
     return all(all_letters)
 
-def clean_window():
+def clean_console():
     if platform.system() == 'Windows':
         os.system('cls')
     elif platform.system() == 'Linux':
@@ -99,40 +101,51 @@ def main():
 
     '''
 
-    print(menu)
-    print("=" * 80)
+    continue_playing = True
 
-    level = int(input('Escoge el nivel de dificultad: '))
-    lifes = level * 5
+    while continue_playing:
+        print(menu)
+        print("=" * 80)
 
-    print('Cargando palabras...')
-    words = read_words_file(level)
-    print('Escogiendo una palabra al azar...')
-    word = get_a_word(words)
-    clean_window()
+        level = int(input('Escoge el nivel de dificultad: '))
+        word = get_a_random_word(level)
+        lives = level * 5
 
-    while True:
-        print_lifes(lifes)
-        print_word(word, letters)
-        print_letters(letters)
+        clean_console()
 
-        character = input('Ingresa una letra: ')
-        letters.append(character)
+        while True:
+            print_lives(lives)
+            print_word(word, letters)
+            print_letters(letters)
 
-        if not check_letter(word, character):
-            lifes -= 1
+            character = input('Ingresa una letra: ')
+            if character in letters:
+                clean_console()
+                print(f'El caracter {character} ya ha sido usado, prueba con otro.')
+                print('\n')
+                continue
 
-        if check_word(word, letters) or lifes == 0:
-            break
+            letters.append(character)
 
-        clean_window()
+            if not check_letter(word, character):
+                lives -= 1
 
+            result_check_word = check_word(word, letters)
+            if result_check_word or lives == 0:
+                if lives == 0:
+                    print(game_over)
+                    print(f'La palabra era: {word.upper()}.')
+                elif result_check_word:
+                    print('\n')
+                    print(f'Felicidades adivinaste la palabra {word.upper()}.')
 
-    if lifes == 0:
-        print(game_over)
-        print(f'La palabra era: {word}')
-    else:
-        print('Felicidades adivinaste la palabra.')
+                print('\n')
+                continue_playing = input('Desea seguir jugando? si/no ') == 'si'
+                letters.clear()
+                clean_console()
+                break
+
+            clean_console()
 
 if __name__ == "__main__":
     main()
