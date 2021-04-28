@@ -48,6 +48,10 @@ def print_lifes(lifes):
     print(f'Te quedan {"♥ " * lifes}vidas.')
     print("=" * 50)
 
+def print_letters(letters):
+    print(f'Has usado las letras: {", ".join(letters)}')
+    print("=" * 50)
+
 def check_letter(word, letter):
     return letter in word
 
@@ -74,7 +78,7 @@ def main():
     '''
 
     print(menu)
-    print("=" * 50)
+    print("=" * 80)
 
     level = int(input('Escoge el nivel de dificultad: '))
     lifes = level * 5
@@ -88,6 +92,8 @@ def main():
     while True:
         print_lifes(lifes)
         print_word(word, letters)
+        print_letters(letters)
+
         character = input('Ingresa una letra: ')
         letters.append(character)
 
@@ -98,7 +104,7 @@ def main():
             break
 
         clean_window()
-        print(letters)
+
 
     if lifes == 0:
         print(f'Game over :\'C la palabra era: {word}')
