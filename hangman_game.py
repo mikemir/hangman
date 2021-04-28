@@ -15,7 +15,7 @@ def get_a_random_word(level):
         raise ValueError("Nivel no definido.")
 
     try:
-        with open("./data/words.txt", 'r') as file:
+        with open("./data/words.txt", 'r', encoding = 'utf8') as file:
             words = list(map(lambda line: line.replace('\n', ''), file.readlines()))
             words = [word for word in words if len(word) in evaluation]
     except FileNotFoundError:
