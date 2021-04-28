@@ -56,7 +56,8 @@ def check_letter(word, letter):
     return letter in word
 
 def check_word(word, letters):
-    all_letters = list(map(lambda letter: letter in letters, word))
+    normalized_word = normalize_word(word)
+    all_letters = list(map(lambda letter: letter in letters, normalized_word))
     return all(all_letters)
 
 def clean_window():
