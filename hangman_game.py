@@ -1,5 +1,6 @@
 import os
 import random
+import platform
 
 def get_a_word(words):
     return random.choice(words)
@@ -10,9 +11,9 @@ def read_words_file(level):
     if level == 1:
         evaluation = [ 4, 5 ]
     elif level == 2:
-        evaluation = [ 6 ]
+        evaluation = [ 6, 7, 8 ]
     elif level == 3:
-        evaluation = [ 7, 8]
+        evaluation = [ 9, 10, 11, 12]
     else:
         raise ValueError("Nivel no definido.")
 
@@ -61,21 +62,41 @@ def check_word(word, letters):
     return all(all_letters)
 
 def clean_window():
-    os.system('clear')
+    if platform.system() == 'Windows':
+        os.system('cls')
+    elif platform.system() == 'Linux':
+        os.system('clear')
 
 def main():
     letters = []
     menu = '''
 
-        _|    _|    _|_|    _|      _|    _|_|_|  _|      _|    _|_|    _|      _|
-        _|    _|  _|    _|  _|_|    _|  _|        _|_|  _|_|  _|    _|  _|_|    _|
-        _|_|_|_|  _|_|_|_|  _|  _|  _|  _|  _|_|  _|  _|  _|  _|_|_|_|  _|  _|  _|
-        _|    _|  _|    _|  _|    _|_|  _|    _|  _|      _|  _|    _|  _|    _|_|
-        _|    _|  _|    _|  _|      _|    _|_|_|  _|      _|  _|    _|  _|      _|
+    █████╗ ██╗  ██╗ ██████╗ ██████╗  ██████╗ █████╗ ██████╗  ██████╗
+    ██╔══██╗██║  ██║██╔═══██╗██╔══██╗██╔════╝██╔══██╗██╔══██╗██╔═══██╗
+    ███████║███████║██║   ██║██████╔╝██║     ███████║██║  ██║██║   ██║
+    ██╔══██║██╔══██║██║   ██║██╔══██╗██║     ██╔══██║██║  ██║██║   ██║
+    ██║  ██║██║  ██║╚██████╔╝██║  ██║╚██████╗██║  ██║██████╔╝╚██████╔╝
+    ╚═╝  ╚═╝╚═╝  ╚═╝ ╚═════╝ ╚═╝  ╚═╝ ╚═════╝╚═╝  ╚═╝╚═════╝  ╚═════╝
+
 
         1. Fácil     (4 a 5 letras)
-        2. Dificil   (6 letras)
-        3. Erudito   (7 a 8 letras)
+        2. Dificil   (6 a 8 letras)
+        3. Erudito   (9 a más letras)
+    '''
+
+    game_over = '''
+
+    ▄████  ▄▄▄       ███▄ ▄███▓▓█████     ▒█████   ██▒   █▓▓█████  ██▀███
+    ██▒ ▀█▒▒████▄    ▓██▒▀█▀ ██▒▓█   ▀    ▒██▒  ██▒▓██░   █▒▓█   ▀ ▓██ ▒ ██▒
+    ▒██░▄▄▄░▒██  ▀█▄  ▓██    ▓██░▒███      ▒██░  ██▒ ▓██  █▒░▒███   ▓██ ░▄█ ▒
+    ░▓█  ██▓░██▄▄▄▄██ ▒██    ▒██ ▒▓█  ▄    ▒██   ██░  ▒██ █░░▒▓█  ▄ ▒██▀▀█▄
+    ░▒▓███▀▒ ▓█   ▓██▒▒██▒   ░██▒░▒████▒   ░ ████▓▒░   ▒▀█░  ░▒████▒░██▓ ▒██▒
+    ░▒   ▒  ▒▒   ▓▒█░░ ▒░   ░  ░░░ ▒░ ░   ░ ▒░▒░▒░    ░ ▐░  ░░ ▒░ ░░ ▒▓ ░▒▓░
+    ░   ░   ▒   ▒▒ ░░  ░      ░ ░ ░  ░     ░ ▒ ▒░    ░ ░░   ░ ░  ░  ░▒ ░ ▒░
+    ░ ░   ░   ░   ▒   ░      ░      ░      ░ ░ ░ ▒       ░░     ░     ░░   ░
+        ░       ░  ░       ░      ░  ░       ░ ░        ░     ░  ░   ░
+                                                        ░
+
     '''
 
     print(menu)
@@ -108,7 +129,8 @@ def main():
 
 
     if lifes == 0:
-        print(f'Game over :\'C la palabra era: {word}')
+        print(game_over)
+        print(f'La palabra era: {word}')
     else:
         print('Felicidades adivinaste la palabra.')
 

@@ -1,5 +1,6 @@
 Camión
-batidoracalor
+batidora
+calor
 calorias
 destino
 elefante
@@ -180,7 +181,10 @@ cuadro
 calor
 partido
 teatro
-bife
+bicicleta
 fiesta
 bala
 auriculares
+lupa
+extraterrestre
+pretencioso
