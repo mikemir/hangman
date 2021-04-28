@@ -38,20 +38,28 @@ def print_word(word, letters):
     normalized_word = normalize_word(word)
     new_word = list(map(lambda letter: letter if letter in letters else "_", normalized_word))
 
-    print('¡Adivina la palabra!')
     print('\n')
     print(" ".join(new_word).upper())
     print('\n')
+    print('¡Adivina la palabra!')
+    print("=" * 50)
 
-def check_word(word, letter):
-    return False
+def print_lifes(lifes):
+    print(f'Te quedan {"♥ " * lifes}vidas.')
+    print("=" * 50)
+
+def check_letter(word, letter):
+    return letter in word
+
+def check_word(word, letters):
+    all_letters = list(map(lambda letter: letter in letters, word))
+    return all(all_letters)
 
 def clean_window():
     os.system('clear')
 
 def main():
     letters = []
-    intentos_fallidos = 0
     menu = '''
 
         _|    _|    _|_|    _|      _|    _|_|_|  _|      _|    _|_|    _|      _|
@@ -66,28 +74,34 @@ def main():
     '''
 
     print(menu)
-    print("=" * 100)
+    print("=" * 50)
 
     level = int(input('Escoge el nivel de dificultad: '))
+    lifes = level * 5
 
     print('Cargando palabras...')
     words = read_words_file(level)
-    print('Escogiendo una palabra al hazar...')
+    print('Escogiendo una palabra al azar...')
     word = get_a_word(words)
     clean_window()
 
     while True:
+        print_lifes(lifes)
         print_word(word, letters)
         character = input('Ingresa una letra: ')
         letters.append(character)
 
-        if check_word(word, letters) or len(letters) >= 5:
+        if not check_letter(word, character):
+            lifes -= 1
+
+        if check_word(word, letters) or lifes == 0:
             break
 
         clean_window()
+        print(letters)
 
-    if len(letters) >= 5:
-        print('Game over :\'C')
+    if lifes == 0:
+        print(f'Game over :\'C la palabra era: {word}')
     else:
         print('Felicidades adivinaste la palabra.')
 
