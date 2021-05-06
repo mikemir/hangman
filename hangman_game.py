@@ -2,6 +2,7 @@ import os
 import random
 import platform
 
+
 def get_a_random_word(level):
     words = []
 
@@ -15,7 +16,7 @@ def get_a_random_word(level):
         raise ValueError("Nivel no definido.")
 
     try:
-        with open("./data/words.txt", 'r', encoding = 'utf8') as file:
+        with open("./data/words.txt", 'r', encoding='utf8') as file:
             words = list(map(lambda line: line.replace('\n', ''), file.readlines()))
             words = [word for word in words if len(word) in evaluation]
     except FileNotFoundError:
@@ -24,9 +25,10 @@ def get_a_random_word(level):
 
     return random.choice(words)
 
+
 def normalize_word(word):
     new_word = []
-    vocals = { 'á': 'a', 'é': 'e', 'í': 'i', 'ó': 'o', 'ú': 'u' }
+    vocals = {'á': 'a', 'é': 'e', 'í': 'i', 'ó': 'o', 'ú': 'u'}
 
     for letter in word:
         if letter in vocals.keys():
@@ -35,6 +37,7 @@ def normalize_word(word):
             new_word.append(letter)
 
     return "".join(new_word).lower()
+
 
 def print_word(word, letters):
     normalized_word = normalize_word(word)
@@ -46,28 +49,34 @@ def print_word(word, letters):
     print(f'La palabra consta de {len(word)} letras.')
     print("=" * 50)
 
+
 def print_lives(lifes):
     print(f'Te quedan {"♥ " * lifes}({lifes}) vidas.')
     print("=" * 50)
+
 
 def print_letters(letters):
     print(f'Has usado las letras: {", ".join(letters)}')
     print("=" * 50)
 
+
 def check_letter(word, letter):
     normalized_word = normalize_word(word)
     return letter in normalized_word
+
 
 def check_word(word, letters):
     normalized_word = normalize_word(word)
     all_letters = list(map(lambda letter: letter in letters, normalized_word))
     return all(all_letters)
 
+
 def clean_console():
     if platform.system() == 'Windows':
         os.system('cls')
     elif platform.system() == 'Linux':
         os.system('clear')
+
 
 def main():
     letters = []
@@ -131,6 +140,7 @@ def main():
                 lives -= 1
 
             result_check_word = check_word(word, letters)
+
             if result_check_word or lives == 0:
                 if lives == 0:
                     print(game_over)
@@ -146,6 +156,7 @@ def main():
                 break
 
             clean_console()
+
 
 if __name__ == "__main__":
     main()
